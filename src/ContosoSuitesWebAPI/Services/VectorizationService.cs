@@ -28,9 +28,9 @@ namespace ContosoSuitesWebAPI.Services
         public async Task<float[]> GetEmbeddings(string text)
         {
             //var embeddingClient = _client.GetEmbeddingClient(_embeddingDeploymentName);
-             #pragma warning disable SKEXP0001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
+            #pragma warning disable SKEXP0001 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
             // Generate a vector for the provided text.
-            var embeddings = await _kernel.GetRequiredService<ITextEmbeddingGenerationService>().GenerateEmbeddingAsync(text);
+               var embeddings = await _kernel.GetRequiredService<ITextEmbeddingGenerationService>().GenerateEmbeddingAsync(text);
             #pragma warning restore SKEXP0001
 
 
