@@ -56,15 +56,15 @@ builder.Services.AddSingleton<Kernel>((_) =>
     IKernelBuilder kernelBuilder = Kernel.CreateBuilder();
     kernelBuilder.AddAzureOpenAIChatCompletion(
         deploymentName: builder.Configuration["AzureOpenAI:DeploymentName"]??builder.Configuration["AzureOpenAI_DeploymentName"],
-        endpoint: builder.Configuration["AzureOpenAI:Endpoint"]??builder.Configuration["AzureOpenAI_Endpoint"],
-        apiKey: builder.Configuration["AzureOpenAI:ApiKey"] ?? builder.Configuration["AzureOpenAI_ApiKey"]
+        endpoint: builder.Configuration["ApiManagement:Endpoint"]??builder.Configuration["ApiManagement_Endpoint"],
+        apiKey: builder.Configuration["ApiManagement:ApiKey"] ?? builder.Configuration["ApiManagement_ApiKey"]
     );
     kernelBuilder.Plugins.AddFromType<DatabaseService>();
     #pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
        kernelBuilder.AddAzureOpenAITextEmbeddingGeneration(
            deploymentName: builder.Configuration["AzureOpenAI:EmbeddingDeploymentName"] ?? builder.Configuration["AzureOpenAI_EmbeddingDeploymentName"],
-           endpoint: builder.Configuration["AzureOpenAI:Endpoint"] ?? builder.Configuration["AzureOpenAI_Endpoint"],
-           apiKey: builder.Configuration["AzureOpenAI:ApiKey"]??builder.Configuration["AzureOpenAI_ApiKey"]
+           endpoint: builder.Configuration["ApiManagement:Endpoint"] ?? builder.Configuration["ApiManagement_Endpoint"],
+           apiKey: builder.Configuration["ApiManagement:ApiKey"]??builder.Configuration["ApiManagement_ApiKey"]
        );
     #pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
     kernelBuilder.Plugins.AddFromType<MaintenanceRequestPlugin>("MaintenanceCopilot");
