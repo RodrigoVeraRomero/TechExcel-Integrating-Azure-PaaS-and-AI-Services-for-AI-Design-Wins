@@ -6,7 +6,12 @@ st.set_page_config(layout="wide")
 def handle_query_vectorization(query):
     """Vectorize the query using the Vectorize endpoint."""
     api_endpoint = st.secrets["api"]["endpoint"]
+    st.write("***************************************************")
+    st.write(api_endpoint)
+    st.write(query)
+    st.write("***************************************************")
     response = requests.get(f"{api_endpoint}/Vectorize", params={"text": query}, timeout=10, verify=False)
+    st.write(response.text)
     return response.text
 
 def handle_vector_search(query_vector, max_results=5, minimum_similarity_score=0.8):
@@ -14,6 +19,7 @@ def handle_vector_search(query_vector, max_results=5, minimum_similarity_score=0
     api_endpoint = st.secrets["api"]["endpoint"]
     headers = {"Content-Type": "application/json"}
     response = requests.post(f"{api_endpoint}/VectorSearch", data=query_vector, params={"max_results": max_results, "minimum_similarity_score": minimum_similarity_score}, headers=headers, timeout=10, verify=False)
+    st.write(response)
     return response
 
 def main():
@@ -45,21 +51,21 @@ def main():
     minimum_similarity_score = st.slider("Minimum Similarity Score:", min_value=0.0, max_value=1.0, value=0.8, step=0.01)
     
     if st.button("Submit"):
-           with st.spinner("Performing vector search..."):
-               if query:
-                   # Vectorize the query text.
-                   # Exercise 3 Task 3 TODO #4: Get the vectorized query text by calling handle_query_vectorization.
-                   query_vector = handle_query_vectorization(query)
-                   # Perform the vector search.
-                   # Exercise 3 Task 3 TODO #5: Get the vector search results by calling handle_vector_search.
-                   vector_search_results = handle_vector_search(query_vector, max_results, minimum_similarity_score)
-                   # Display the results.
-                   st.write("## Results")
-                   # Exercise 3 Task 3 TODO #6: Display the results as a table.
-                   st.table(vector_search_results.json())
-               else:
-                   st.warning("Please enter a query.")
-
+        with st.spinner("Performing vector search..."):
+            if query:
+                # Vectorize the query text.
+                # Exercise 3 Task 3 TODO #4: Get the vectorized query text by calling handle_query_vectorization.
+                query_vector = handle_query_vectorization(query)
+                # Perform the vector search.
+                # Exercise 3 Task 3 TODO #5: Get the vector search results by calling handle_vector_search.
+                vector_search_results = handle_vector_search(query_vector, max_results, minimum_similarity_score)
+                # Display the results.
+                st.write("## Results")
+                # Exercise 3 Task 3 TODO #6: Display the results as a table.
+                st.table(vector_search_results.json())
+                
+            else:
+                st.warning("Please enter a query.")
 
 if __name__ == "__main__":
     main()
