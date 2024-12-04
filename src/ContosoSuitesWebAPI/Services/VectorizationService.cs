@@ -1,4 +1,5 @@
-﻿using Azure.AI.OpenAI;
+﻿using System.Globalization;
+using Azure.AI.OpenAI;
 using ContosoSuitesWebAPI.Entities;
 using Microsoft.Azure.Cosmos;
 
